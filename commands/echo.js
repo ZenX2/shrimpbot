@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'echo',
 	aliases: ['talkback', 'repeat'],
-	description: '',
+	description: 'repeats back any messages sent in the next 15 seconds',
 	cooldown: 15,
 	execute(message, args) {
 		const filter = m => true;
