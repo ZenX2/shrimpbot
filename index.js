@@ -1,7 +1,8 @@
 const fs = require('fs');
 const config = require('./config.json');
 const emojiCharacters = require('./emojiCharacters');
-const reactWords = [['henlo'], ['plz'], ['marf'], ['benis', 'horsey'], ['no pants', 'this'], ['drug', 'pepewat'], ['skyshale', 'lenny'], ['boner'], ['maow'], ['hugs'], ['gay', 'gay']];
+// const reactWords = [['henlo'], ['plz'], ['marf'], ['benis', 'horsey'], ['no pants', 'this'], ['drug', 'pepewat'], ['skyshale', 'lenny'], ['boner'], ['maow'], ['hugs'], ['gay', 'gay']];
+const reactWords = [['shrimp'], ['plz'], ['benis', 'horsey'], ['hugs'], ['gay', 'gay']];
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
