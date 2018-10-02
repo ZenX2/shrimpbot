@@ -6,9 +6,30 @@ module.exports = {
 		const filter = m => true;
 		const collector = message.channel.createMessageCollector(filter, { time: 3 * 60000 });
 		const effects = [];
-		const templateStart = 'This is a replication of moderate [psychedelic effects](https://effectindex.com/summaries/psychedelics/visual). The specific effects which are occurring within this replication seem to include:';
+
+		let strength = 'moderate';
+		let drug = 'psychedelic';
+		if (args.length == 1) {
+			strength = args[0];
+		}
+		else if (args.length == 2) {
+			strength = args[0];
+			drug = args[1];
+		}
+
+		if (drug == 'disso' || drug == 'dissociative') {
+			drug = '[dissociative effects](https://effectindex.com/summaries/dissociatives/)';
+		}
+		else if (drug == 'del' || drug == 'deliriant') {
+			drug = '[deliriant effects](https://effectindex.com/summaries/deliriants/)';
+		}
+		else {
+			drug = '[psychedelic effects](https://effectindex.com/summaries/psychedelics/visual)';
+		}
+
+		const templateStart = `This is a replication of ${strength} ${drug}. The specific effects which are occurring within this replication seem to include:`;
 		const templateEnd = 'Please reply to this comment if you disagree with this replication analysis or would like to provide general feedback.';
-		//* [**Geometry**](https://effectindex.com/effects/geometry) (level 3)
+		let additionalNotes = '';
 
 		// What do i need to make this work?
 		// Need to have the collector go until a finish message is sent
@@ -36,10 +57,18 @@ module.exports = {
 					const effect = spl[0].trim();
 					const notes = (spl[1] || '').trim();
 					const link = effect.toLowerCase().replace(' ', '-');
-					const line = `* [**${effect}**](https://effectindex.com/effects/${link}) ${notes}`;
-					templateMiddle += line + '\n';
+
+					// **Additional notes:**
+
+					if (effect == 'notes') {
+						additionalNotes = `**Additional notes:**\n> ${notes}`;
+					}
+					else {
+						const line = `* [**${effect}**](https://effectindex.com/effects/${link}) ${notes}`;
+						templateMiddle += line + '\n';
+					}
 				});
-				message.channel.send(templateStart + '\n' + templateMiddle + '\n' + templateEnd);
+				message.channel.send(templateStart + '\n' + templateMiddle + '\n' + templateEnd + '\n' + additionalNotes);
 			}
 			catch(error) {
 				console.log(error);
