@@ -1,0 +1,28 @@
+{
+  "name": "shrimpbot",
+  "version": "1.0.0",
+  "description": "an emmisary from the Shrimplands",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZenX2/shrimpbot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "shrimp"
+  ],
+  "author": "rho-cardinal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZenX2/shrimpbot/issues"
+  },
+  "homepage": "https://github.com/ZenX2/shrimpbot#readme",
+  "engines": {
+    "node": "8.x"
+  }
+}

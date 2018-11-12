@@ -1,11 +1,19 @@
+const config = require('../config.json');
+
 module.exports = {
 	name: 'analysis',
 	description: 'autoformats an analysis comment',
-	cooldown: 15,
-	execute(message, args) {
-		const filter = m => true;
-		const collector = message.channel.createMessageCollector(filter, { time: 3 * 60000 });
+	cooldown: 3,
+	execute(message, _args) {
+		// const filter = m => true;
+		// const collector = message.channel.createMessageCollector(filter, { time: 3 * 60000 });
 		const effects = [];
+
+		const effectLines = message.content.slice(config.prefix.length).split('\n');
+		const args = effectLines.shift().split(/ +/);
+		args.shift();
+
+		// message.channel.send(effectLines[0]);
 
 		let strength = 'moderate';
 		let drug = 'psychedelic';
@@ -36,16 +44,41 @@ module.exports = {
 		// All collected messages need to be split if there's a |
 		// First half needs to be formatted lowercase with hyphens for links
 
-		collector.on('collect', m => {
+		// NEXT UP: search recent messages in #subreddit-moderation for posts by dosebot, with emoji reactions.
+		// OR be listening to all reactions and push ones that are to dosebot posts in that channel to a list?
+		// When would that list get reset?
+		// We want to listen on the messageReactionAdd event for making the post-index.
+
+		/* collector.on('collect', m => {
 			// Stop condition
 			if (m.content.includes('done')) {
 				collector.stop();
 				return;
 			}
 			effects.push(m.content);
-		});
+		});*/
 
-		collector.on('end', collected => {
+		let templateMiddle = '';
+		for (const effectLine of effectLines) {
+			// Split message
+			const spl = effectLine.split('|');
+			const effect = spl[0].trim();
+			const notes = (spl[1] || '').trim();
+			const link = effect.toLowerCase().replace(' ', '-');
+
+			// **Additional notes:**
+
+			if (effect == 'notes') {
+				additionalNotes = `**Additional notes:**\n> ${notes}`;
+			}
+			else {
+				const line = `* [**${effect}**](https://effectindex.com/effects/${link}) ${notes}`;
+				templateMiddle += line + '\n';
+			}
+		}
+		message.channel.send('```' + templateStart + '\n\n' + templateMiddle + '\n' + templateEnd + '\n' + additionalNotes + '```');
+
+		/* collector.on('end', collected => {
 
 
 			console.log(`Collected ${collected.size} items`);
@@ -68,11 +101,12 @@ module.exports = {
 						templateMiddle += line + '\n';
 					}
 				});
-				message.channel.send(templateStart + '\n' + templateMiddle + '\n' + templateEnd + '\n' + additionalNotes);
+				message.channel.send('```' + templateStart + '\n\n' + templateMiddle + '\n' + templateEnd + '\n' + additionalNotes + '```');
 			}
 			catch(error) {
 				console.log(error);
 			}
-		});
+		});*/
+
 	},
 };
