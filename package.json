@@ -24,5 +24,11 @@
   "homepage": "https://github.com/ZenX2/shrimpbot#readme",
   "engines": {
     "node": "8.x"
+  },
+  "dependencies": {
+    "discord.io": "^2.5.3",
+    "discord.js": "^11.4.2",
+    "dotenv": "^6.1.0",
+    "eslint": "^5.9.0"
   }
 }

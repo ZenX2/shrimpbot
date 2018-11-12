@@ -158,4 +158,4 @@ client.on('message', async message => {
 	// message.channel.send('--sponge ' + message.content);
 });
 
-client.login(config.token);
+client.login(process.env.DISCORD_API_TOKEN);
