@@ -1,1 +1,1 @@
-worker: forever --minUptime 1000 index.js
+worker: node index.js
